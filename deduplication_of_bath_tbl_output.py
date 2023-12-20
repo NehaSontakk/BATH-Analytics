@@ -7,8 +7,19 @@ Original file is located at
     https://colab.research.google.com/drive/1hOk5dtuVBu404dEP1aTxC2IbPZDjsFHY
 """
 
-input_filepath = '/content/drive/MyDrive/Lab Work/Syed Data/BATH Outputs/DNA_Mitochondria_kingdom_sprot_ctcombined_sorted_data.tbl'
-output_filepath = 'DNA_Mitochondria_kingdom_sprot_ctcombined_deduplicated.tbl'
+import sys
+
+if len(sys.argv) < 4:
+    print("Usage: python script.py <input_filepath> <output_filepath> <output_analysis_filepath>")
+    sys.exit(1)
+
+input_filepath = sys.argv[1]
+output_filepath = sys.argv[2]
+output_filepath_analysis = sys.argv[3]
+
+#input_filepath = '/content/drive/MyDrive/Lab Work/Syed Data/BATH Outputs/DNA_Mitochondria_kingdom_sprot_ctcombined_sorted_data.tbl'
+#output_filepath = 'DNA_Mitochondria_kingdom_sprot_ctcombined_deduplicated.tbl'
+#output_filepath_analysis = 'DNA_Mitochondria_kingdom_sprot_ctcombined_counts.tbl'
 
 def compare_contig_names(original_contigs, positive_strand, negative_strand):
     # Create sets of contig names for easier comparison
@@ -385,54 +396,7 @@ count_total_entries(contig_pos)
 
 #save_dict_to_json(contig_pos, 'positive_strand.json')
 
-output_filepath = input_filepath.replace('.tbl', '_deduplicated.tbl')
 combine_strands_to_tbl(contig_pos,contig_neg,output_filepath)
-
-#Negative Strand Test Data
-test_data = {
-    "k127_486726": [
-        {
-            "ali_from": 96445,
-            "ali_to": 96056,
-            "e_value": 0.0073,
-            "full_line": "k127_486726 - O63852 - 982 708 836 181032 96445 96056 96451 95954 0.0073 18.3 0.0 0 0 std - ct22"
-        },
-        {
-            "ali_from": 96496,
-            "ali_to": 96056,
-            "e_value": 3.4e-06,
-            "full_line": "k127_486726 - O63852 - 982 691 836 181032 96496 96056 96535 95954 3.4e-06 29.3 0.1 0 0 std - ct23"
-        }
-    ],
-    "k127_533492": [
-        {
-            "ali_from": 108542,
-            "ali_to": 107874,
-            "e_value": 0.0013,
-            "full_line": "k127_533492 - B0FWD3 - 580 10 236 131788 108542 107874 108567 107704 0.0013 28.4 0.0 5 0 fs - ct14"
-        },
-        {
-            "ali_from": 108295,
-            "ali_to": 107862,
-            "e_value": 0.21,
-            "full_line": "k127_533492 - Q31696 - 265 95 240 131788 108295 107862 108347 107805 0.21 23.5 0.0 2 0 fs - ct14"
-        }
-    ],
-    "k127_748425": [
-        {
-            "ali_from": 33640,
-            "ali_to": 33255,
-            "e_value": 0.18,
-            "full_line": "k127_748425 - P0DKY8 - 187 7 135 125518 33640 33255 33664 33209 0.18 24.5 0.0 7 0 fs - ct13"
-        },
-        {
-            "ali_from": 33640,
-            "ali_to": 33252,
-            "e_value": 0.027,
-            "full_line": "k127_748425 - P0DKY8 - 187 7 136 125518 33640 33252 33664 33220 0.027 27.1 0.0 4 0 fs - ct3"
-        }
-    ]
-}
 
 """ Analysis"""
 
@@ -455,7 +419,6 @@ def save_counts_to_file(positive_counts, negative_counts, original_counts, outpu
 
     return output_file_path
 
-output_filepath_analysis = input_filepath.replace('.tbl', '_counts.txt')
 save_counts_to_file(contig_pos,contig_neg,contigs,output_filepath_analysis)
 
 count_alignments_in_file(contig_neg)
