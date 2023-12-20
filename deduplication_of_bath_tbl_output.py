@@ -294,22 +294,14 @@ def deduplication_logic2(contig_dict, is_positive):
     return contig_dict, overlap_above_70_discard
 '''
 
-def count_alignments_in_file(file_path):
-    try:
-        with open(file_path, 'r') as file:
-            data = json.load(file)
+def count_alignments_in_file(data):
+    # Count the number of alignments for each contig
+    contig_counts = {contig: len(alignments) for contig, alignments in data.items()}
 
-        # Count the number of alignments for each contig
-        contig_counts = {contig: len(alignments) for contig, alignments in data.items()}
+    # Calculate the total number of alignments across all contigs
+    total_alignments = sum(contig_counts.values())
 
-        # Calculate the total number of alignments across all contigs
-        total_alignments = sum(contig_counts.values())
-
-        return contig_counts, total_alignments
-
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        return {}, 0
+    return contig_counts, total_alignments
 
 def deduplication_logic2(contig_dict, is_positive):
     overlap_above_70_keep = {}
@@ -360,6 +352,19 @@ def deduplication_logic2(contig_dict, is_positive):
 
     return contig_dict, overlap_above_70_discard
 
+# Function to combine positive and negative strand data into a tbl file
+def combine_strands_to_tbl(positive_strand_data, negative_strand_data, output_filepath):
+    combined_lines = []
+    for contig in positive_strand_data:
+        combined_lines.extend([alignment['full_line'] for alignment in positive_strand_data[contig]])
+    for contig in negative_strand_data:
+        combined_lines.extend([alignment['full_line'] for alignment in negative_strand_data[contig]])
+
+    with open(output_filepath, 'w') as file:
+        file.write("# target name\taccession\tquery name\taccession\thmm len\thmm from\thmm to\tseq len\tali from\tali to\tenv from\tenv to\tE-value\tscore\tbias\tshifts\tstops\tpipe\tdescription of target\n")
+        for line in combined_lines:
+            file.write(line + "\n")
+
 contigs, header = process_file(input_filepath)
 
 positive_strand, negative_strand = find_pos_neg_strand(contigs)
@@ -372,13 +377,16 @@ contig_neg, discard_neg = deduplication_logic2(negative_strand,is_positive=False
 
 count_total_entries(contig_neg)
 
-save_dict_to_json(contig_neg, 'negative_strand.json')
+#save_dict_to_json(contig_neg, 'negative_strand.json')
 
 contig_pos, discard_pos = deduplication_logic2(positive_strand,is_positive=True)
 
 count_total_entries(contig_pos)
 
-save_dict_to_json(contig_pos, 'positive_strand.json')
+#save_dict_to_json(contig_pos, 'positive_strand.json')
+
+output_filepath = input_filepath.replace('.tbl', '_deduplicated.tbl')
+combine_strands_to_tbl(contig_pos,contig_neg,output_filepath)
 
 #Negative Strand Test Data
 test_data = {
@@ -426,11 +434,28 @@ test_data = {
     ]
 }
 
-"""## Analysis"""
+""" Analysis"""
 
-count_alignments_in_file("/content/negative_strand.json")
+def save_counts_to_file(positive_counts, negative_counts, original_counts, output_file_path):
+    with open(output_file_path, 'w') as file:
+        file.write("Contig\tPositive Strand\tNegative Strand\tOriginal Contigs\tTotal (Positive + Negative)\n")
 
-count_alignments_in_file("/content/positive_strand.json")
+        for contig in set(original_counts.keys()).union(positive_counts.keys(), negative_counts.keys()):
+            pos_count = positive_counts.get(contig, 0)
+            neg_count = negative_counts.get(contig, 0)
 
-count_alignments_in_file("//content/all_contigs.json")
+            # Ensure the counts are integers (get the count if it's a list)
+            pos_count = len(pos_count) if isinstance(pos_count, list) else pos_count
+            neg_count = len(neg_count) if isinstance(neg_count, list) else neg_count
+            orig_count = len(original_counts.get(contig, []))
 
+            total_count = pos_count + neg_count
+            line = f"{contig}\t{pos_count}\t{neg_count}\t{orig_count}\t{total_count}\n"
+            file.write(line)
+
+    return output_file_path
+
+output_filepath_analysis = input_filepath.replace('.tbl', '_counts.txt')
+save_counts_to_file(contig_pos,contig_neg,contigs,output_filepath_analysis)
+
+count_alignments_in_file(contig_neg)
