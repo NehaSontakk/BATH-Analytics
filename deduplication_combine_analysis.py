@@ -28,7 +28,7 @@ for file_name in file_names:
     last_two_columns = df.iloc[:, -2:]
 
     # Add a prefix to column names
-    prefix = file_name.split('_')[0]  # Adjust the splitting logic as needed
+    prefix = file_name.split('.')[0]  # Adjust the splitting logic as needed
     last_two_columns.columns = [f"{prefix}_{col}" for col in last_two_columns.columns]
 
     # Concatenate with the combined dataframe
