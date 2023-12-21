@@ -9,7 +9,7 @@
 FILE_DIR="/xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/output"
 
 # Set the directory to save the output
-OUTPUT_DIR="/path/to/output/directory"
+OUTPUT_DIR="/xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/deduplication_output"
 
 # List of filenames to process
 FILES=("DNA_Bacteria_kingdom_sprot.tbl" "DNA_Archaea_kingdom_sprot.tbl" "DNA_Viruses_kingdom_sprot_ctcombined_sorted_data.tbl" "DNA_Mitochondria_kingdom_sprot_ctcombined_sorted_data.tbl" "HAMAP_bath_bin82.tbl")
