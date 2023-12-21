@@ -10,12 +10,13 @@ Original file is located at
 import sys
 
 if len(sys.argv) < 4:
-    print("Usage: python script.py <input_filepath> <output_filepath> <output_analysis_filepath>")
+    print("Usage: python script.py <e_value_cutoff> <input_filepath> <output_filepath> <output_analysis_filepath>")
     sys.exit(1)
 
 input_filepath = sys.argv[1]
-output_filepath = sys.argv[2]
-output_filepath_analysis = sys.argv[3]
+e_value_cutoff = sys.argv[2]
+output_filepath = sys.argv[3]
+output_filepath_analysis = sys.argv[4]
 
 #input_filepath = '/content/drive/MyDrive/Lab Work/Syed Data/BATH Outputs/DNA_Mitochondria_kingdom_sprot_ctcombined_sorted_data.tbl'
 #output_filepath = 'DNA_Mitochondria_kingdom_sprot_ctcombined_deduplicated.tbl'
@@ -65,7 +66,7 @@ def count_total_entries(contigs):
         total_entries += len(contigs[target_name])
     return total_entries
 
-def process_file(filepath):
+def process_file(filepath, e_value_cutoff=None):
     contigs = {}
     header_lines = []
     count = 0
@@ -88,15 +89,17 @@ def process_file(filepath):
         ali_to = int(parts[9])
         e_value = float(parts[12])
 
-        if target_name not in contigs:
-            contigs[target_name] = []
+        # Check if the e-value is below the cutoff (if specified) before adding
+        if e_value_cutoff is None or e_value <= e_value_cutoff:
+            if target_name not in contigs:
+                contigs[target_name] = []
 
-        contigs[target_name].append({
-            'ali_from': ali_from,
-            'ali_to': ali_to,
-            'e_value': e_value,
-            'full_line': line.strip()
-        })
+            contigs[target_name].append({
+                'ali_from': ali_from,
+                'ali_to': ali_to,
+                'e_value': e_value,
+                'full_line': line.strip()
+            })
 
     # Sorting each contig's entries
     for target_name in contigs:
@@ -109,6 +112,7 @@ def process_file(filepath):
     print("Contig Length:", len(contigs))
     print("Contig Value Entry Length:", count_total_entries(contigs))
     return contigs, header_lines
+
 
 def find_pos_neg_strand(contigs):
     positive_strand = {}
@@ -376,7 +380,7 @@ def combine_strands_to_tbl(positive_strand_data, negative_strand_data, output_fi
         for line in combined_lines:
             file.write(line + "\n")
 
-contigs, header = process_file(input_filepath)
+contigs, header = process_file(input_filepath,e_value_cutoff)
 
 positive_strand, negative_strand = find_pos_neg_strand(contigs)
 
