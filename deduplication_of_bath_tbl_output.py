@@ -9,14 +9,19 @@ Original file is located at
 
 import sys
 
-if len(sys.argv) < 4:
+if len(sys.argv) < 5:
     print("Usage: python script.py <e_value_cutoff> <input_filepath> <output_filepath> <output_analysis_filepath>")
     sys.exit(1)
 
 input_filepath = sys.argv[1]
-e_value_cutoff = sys.argv[2]
+e_value_cutoff_str = sys.argv[2]
 output_filepath = sys.argv[3]
 output_filepath_analysis = sys.argv[4]
+
+if e_value_cutoff_str.lower() != 'none':
+    e_value_cutoff = float(e_value_cutoff_str)
+else:
+    e_value_cutoff = None
 
 #input_filepath = '/content/drive/MyDrive/Lab Work/Syed Data/BATH Outputs/DNA_Mitochondria_kingdom_sprot_ctcombined_sorted_data.tbl'
 #output_filepath = 'DNA_Mitochondria_kingdom_sprot_ctcombined_deduplicated.tbl'
