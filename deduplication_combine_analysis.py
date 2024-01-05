@@ -3,13 +3,13 @@ import os
 
 # List of file names
 file_names = [
-    "DNA_Archaea_kingdom_sprot_deduplicated.tbl",
-    "DNA_Bacteria_kingdom_sprot_deduplicated.tbl",
-    "DNA_Mitochondria_kingdom_sprot_ctcombined_sorted_data_deduplicated.tbl",
-    "DNA_Viruses_kingdom_sprot_ctcombined_sorted_data_deduplicated.tbl",
-    "HAMAP_bath_bin82_deduplicated.tbl",
-    "DNA_Bacteria_AMR_sprot_deduplicated.tbl",
-    "DNA_Bacteria_IS_sprot_deduplicated.tbl"
+    "DNA_Archaea_kingdom_sprot_counts.tbl",
+    "DNA_Bacteria_AMR_sprot_counts.tbl",
+    "DNA_Mitochondria_kingdom_sprot_ctcombined_sorted_data_counts.tbl",
+    "DNA_Viruses_kingdom_sprot_ctcombined_sorted_data_counts.tbl",
+    "HAMAP_bath_bin82_counts.tbl",
+    "DNA_Bacteria_kingdom_sprot_counts.tbl",
+    "DNA_Bacteria_IS_sprot_counts.tbl"
 ]
 
 # Directory where files are located
