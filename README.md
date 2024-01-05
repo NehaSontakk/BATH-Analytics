@@ -3,7 +3,6 @@
 1. run_bathsearch.sh (replace bin file name)
 2. 
 
-## Deduplication Logic
 
 ## Pseudocode for Deduplication Logic
 
