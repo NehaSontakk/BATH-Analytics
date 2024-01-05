@@ -3,6 +3,56 @@
 1. run_bathsearch.sh (replace bin file name)
 2. 
 
+## Deduplication Logic
+
+## Pseudocode for Deduplication Logic
+
+**Function:** `deduplication_logic2`
+
+### Inputs:
+- `contig_dict`: A dictionary of contigs, where each contig contains a list of alignment entries.
+- `is_positive`: A boolean flag indicating whether to process the positive or negative strand.
+
+### Outputs:
+- Updated `contig_dict` with deduplicated alignments.
+
+### Process:
+
+1. **Initialize Dictionaries for Tracking Changes**
+   - Create dictionaries to track alignments that are kept, discarded, or updated due to overlap resolution.
+
+2. **Iterate Through Each Contig in `contig_dict`**
+   - For each `target_name` in `contig_dict`, process its alignments.
+
+3. **Compare Alignments Within Each Contig**
+   - Iterate through pairs of alignments (`align1` and `align2`) within the same contig.
+   - For each pair, calculate the overlap percentage.
+
+4. **Decision Making Based on Overlap and E-values**
+   - If the overlap is above a certain threshold (e.g., 70%):
+     - Compare E-values of `align1` and `align2`.
+     - Keep the alignment with the lower (better) E-value and discard the other.
+   - If the overlap is moderate (e.g., between 10% and 70%):
+     - Again, compare E-values.
+     - Decide which alignment to update based on the better E-value.
+     - Update the alignment with the higher E-value to resolve the overlap.
+
+5. **Updating Alignments to Resolve Overlap**
+   - If updating `align1` (when `align2` is a better hit):
+     - Adjust `align1['ali_to']` to just before `align2['ali_from']`.
+   - If updating `align2` (when `align1` is a better hit):
+     - Adjust `align2['ali_from']` to just after `align1['ali_to']`.
+   - Ensure that updates do not alter the original start of alignments.
+
+6. **Store Updated Alignments**
+   - Record changes in the appropriate dictionaries for tracking.
+
+7. **Return Updated Contig Dictionary**
+   - Return the modified `contig_dict` reflecting the deduplication process.
+
+**End Function**
+
+
 # Testing
 
 1. Non-Overlapping Alignments: Alignment 1 (a to b, any E-value), Alignment 2 (c to d, any E-value), where b < c. This tests the script's ability to handle non-overlapping alignments.
