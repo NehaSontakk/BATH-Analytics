@@ -8,6 +8,7 @@ Original file is located at
 """
 
 import sys
+import json
 
 if len(sys.argv) < 5:
     print("Usage: python script.py <e_value_cutoff> <input_filepath> <output_filepath> <output_analysis_filepath>")
@@ -181,25 +182,25 @@ def update_alignments(contig_dict, target_name, i, j, overlap_below_70_old_disca
     if update_first_alignment:
         # Update align1 based on align2's position
         updated_align1 = align1.copy()
-        if align2['ali_from'] > align1['ali_from']:
-            updated_align1['ali_from'] = align2['ali_to'] + 1
-            contig_dict[target_name][i] = updated_align1
-        elif align2['ali_from'] < align1['ali_to']:
+
+        # Adjust the end of align1 if it overlaps with the start of align2
+        if align1['ali_to'] >= align2['ali_from']:
             updated_align1['ali_to'] = align2['ali_from'] - 1
             contig_dict[target_name][i] = updated_align1
 
         updated_alignment = updated_align1
 
+
     else:
+
         # Update align2 based on align1's position
         updated_align2 = align2.copy()
         if align1['ali_to'] > align2['ali_from']:
-            updated_align2['ali_to'] = align1['ali_from'] - 1
+            updated_align2['ali_from'] = align1['ali_to'] + 1  # Corrected this line
             contig_dict[target_name][j] = updated_align2
         elif align1['ali_from'] < align2['ali_to']:
-            updated_align2['ali_from'] = align1['ali_to'] + 1
+            updated_align2['ali_to'] = align1['ali_from'] - 1
             contig_dict[target_name][j] = updated_align2
-
         updated_alignment = updated_align2
 
     if updated_alignment:
@@ -207,15 +208,11 @@ def update_alignments(contig_dict, target_name, i, j, overlap_below_70_old_disca
         add_entry_to_dict(overlap_below_70_updated_add, target_name, updated_alignment)
 
     # Optional debug prints
-    # print("Updated Alignment: ", updated_alignment['ali_from'], '\t', updated_alignment['ali_to'], '\t', updated_alignment['e_value'])
-
-    # Optional debug prints
     print("Final entry values:")
     print("Flag: update_first_alignment", update_first_alignment)
     print("Alignment 1: ", contig_dict[target_name][i]['ali_from'], '\t', contig_dict[target_name][i]['ali_to'], '\t', contig_dict[target_name][i]['e_value'])
     print("Alignment 2: ", contig_dict[target_name][j]['ali_from'], '\t', contig_dict[target_name][j]['ali_to'], '\t', contig_dict[target_name][j]['e_value'])
 
-import json
 
 def save_dict_to_json(contig_dict, filename):
     # Convert the dictionary to a JSON string
