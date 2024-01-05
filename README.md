@@ -13,3 +13,4 @@
 7. Non-Overlapping Alignments with Negative Strands: Alignment 1 (a to b, any E-value), Alignment 2 (c to d, any E-value) for negative strands, ensuring that the logic for negative strand overlap calculation is correct.
 8. Overlapping Alignments with Varying Degrees of Overlap: Multiple test cases with different degrees of overlap (e.g., 10%, 50%, 90%) to test how the script handles varying overlap scenarios.
 9. Cases with Multiple Alignments: More than two alignments overlapping in various ways to check how the script handles complex scenarios with multiple overlaps
+10. Alignments Completely Overlapping Regions and Larger Alignment with High/Low E-value
