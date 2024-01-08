@@ -6,7 +6,7 @@
 #SBATCH --mem=1000
 
 FILE_DIR="/xdisk/twheeler/nsontakke/BATH_Prokka_DB/Output_Bathsearch"
-OUTPUT_DIR="/xdisk/twheeler/nsontakke/BATH_Prokka_DB/Output_Bathsearch"
+OUTPUT_DIR="/xdisk/twheeler/nsontakke/BATH_Prokka_DB/Output_Deduplication"
 
 FILES=("DNA_Bacteria_IS_sprot.tbl" "DNA_Bacteria_AMR_sprot.tbl" "DNA_Bacteria_kingdom_sprot.tbl" "DNA_Archaea_kingdom_sprot.tbl" "DNA_Viruses_kingdom_sprot_ctcombined_sorted_data.tbl" "DNA_Mitochondria_kingdom_sprot_ctcombined_sorted_data.tbl" "HAMAP_bath_bin82.tbl")
 
