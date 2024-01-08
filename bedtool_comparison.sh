@@ -4,7 +4,7 @@
 prokka_gff="/xdisk/twheeler/nsontakke/BATH_Prokka_DB/Prokka_output/bin_82_prokka_annotation.gff"
 bath_csv="/xdisk/twheeler/nsontakke/BATH_Prokka_DB/Output_Deduplication/BATH_output_combined.csv" 
 bath_dataset_type="bath_data"
-output_dir="/xdisk/twheeler/nsontakke/BATH_Prokka_DB/Output_Bedtools/"
+output_dir="/xdisk/twheeler/nsontakke/BATH_Prokka_DB/Output_Bedtools"
 prokka_bed="${output_dir}/bin.82.fa.bed"
 bath_bed="${output_dir}/${bath_dataset_type}_bin82.bed"
 corrected_bath_bed="${output_dir}/corrected_${bath_dataset_type}_bin82_w_strand.bed"
