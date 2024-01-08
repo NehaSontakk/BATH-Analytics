@@ -5,8 +5,8 @@
 #SBATCH --time=10:00
 #SBATCH --mem=1000
 
-FILE_DIR="/xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/output"
-OUTPUT_DIR="/xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/deduplication_output"
+FILE_DIR="/xdisk/twheeler/nsontakke/BATH_Prokka_DB/Output_Bathsearch"
+OUTPUT_DIR="/xdisk/twheeler/nsontakke/BATH_Prokka_DB/Output_Bathsearch"
 
 FILES=("DNA_Bacteria_IS_sprot.tbl" "DNA_Bacteria_AMR_sprot.tbl" "DNA_Bacteria_kingdom_sprot.tbl" "DNA_Archaea_kingdom_sprot.tbl" "DNA_Viruses_kingdom_sprot_ctcombined_sorted_data.tbl" "DNA_Mitochondria_kingdom_sprot_ctcombined_sorted_data.tbl" "HAMAP_bath_bin82.tbl")
 
@@ -20,5 +20,5 @@ for FILE in "${FILES[@]}"; do
     echo "Processing file: $FILE"
 
     # Run the Python script with the updated file paths
-    python /xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/deduplication_scripts/deduplication_of_bath_tbl_output.py "${INPUT_FILEPATH}" "${OUTPUT_FILEPATH}" "${OUTPUT_ANALYSIS_FILEPATH}"
+    python /xdisk/twheeler/nsontakke/BATH_Prokka_DB/Scripts/duplication_of_bath_tbl_output.py "${INPUT_FILEPATH}" "${OUTPUT_FILEPATH}" "${OUTPUT_ANALYSIS_FILEPATH}"
 done
