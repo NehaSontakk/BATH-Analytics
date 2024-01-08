@@ -296,13 +296,17 @@ compare_contig_names(contigs, positive_strand, negative_strand)
 
 #save_dict_to_json(contigs, 'all_contigs.json')
 
-contig_neg, discard_neg = deduplication_logic2(negative_strand,is_positive=False)
+contig_neg_0, discard_neg_0 = deduplication_logic2(negative_strand,is_positive=False)
+contig_neg_1, discard_neg_1 = deduplication_logic2(contig_neg_0,is_positive=False)
+contig_neg, discard_neg = deduplication_logic2(contig_neg_1,is_positive=False)
 
 count_total_entries(contig_neg)
 
 #save_dict_to_json(contig_neg, 'negative_strand.json')
 
-contig_pos, discard_pos = deduplication_logic2(positive_strand,is_positive=True)
+contig_pos_0, discard_pos_0 = deduplication_logic2(positive_strand,is_positive=True)
+contig_pos_1, discard_pos_1 = deduplication_logic2(contig_pos_0,is_positive=True)
+contig_pos, discard_pos = deduplication_logic2(contig_pos_1,is_positive=True)
 
 count_total_entries(contig_pos)
 
