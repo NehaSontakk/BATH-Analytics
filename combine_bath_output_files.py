@@ -49,6 +49,6 @@ filtered_df = combined_df.loc[combined_df.groupby(['# target name', 'ali from', 
 sorted_df = filtered_df.groupby('# target name', group_keys=False).apply(lambda x: x.sort_values('ali from'))
 
 # Save the sorted DataFrame to CSV and .tbl files
-sorted_df.to_csv("/content/drive/MyDrive/Lab Work/Parkinsons_Data/Final_Bath_Output/BATH_output_combined.csv", sep=",", index=False)
-sorted_df.to_csv("/content/drive/MyDrive/Lab Work/Parkinsons_Data/Final_Bath_Output/BATH_output_combined.tbl", sep="\t", index=False)
+sorted_df.to_csv("/xdisk/twheeler/nsontakke/BATH_Prokka_DB/Output_Deduplication/BATH_output_combined.csv", sep=",", index=False)
+sorted_df.to_csv("/xdisk/twheeler/nsontakke/BATH_Prokka_DB/Output_Deduplication/BATH_output_combined.tbl", sep="\t", index=False)
 
