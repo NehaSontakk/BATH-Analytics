@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=prokka_deduplication
-#SBATCH --output=/xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/deduplication_scripts/logfile.log
+#SBATCH --output=deduplication_logfile.log
 #SBATCH --ntasks=1
 #SBATCH --time=10:00
 #SBATCH --mem=1000
