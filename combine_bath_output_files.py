@@ -11,7 +11,7 @@ from glob import glob
 import re
 import pandas as pd
 
-file_names = [i for i in glob("/content/drive/MyDrive/Lab Work/Parkinsons_Data/Deduplicated_Bath_Output/*_deduplicated.tbl")]
+file_names = [i for i in glob("/xdisk/twheeler/nsontakke/BATH_Prokka_DB/Output_Deduplication/*_deduplicated.tbl")]
 
 # Function to read a .tbl file into a DataFrame
 def read_tbl_file_adjusted(file_path):
