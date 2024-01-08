@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Define file paths and names
-prokka_gff="/home/u13/nsontakke/Parkinsons_data/bin_82/prokka_output/bin_82_prokka_annotation.gff"
-bath_csv="/xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/deduplication_output/BATH_output_combined.csv" # Changed to CSV file
-bath_dataset_type="bath_data"  # Replace with the actual dataset type as needed
-output_dir="/xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/bedtool_comparison" # Define your output directory path here
+prokka_gff="/xdisk/twheeler/nsontakke/BATH_Prokka_DB/Prokka_output/bin_82_prokka_annotation.gff"
+bath_csv="/xdisk/twheeler/nsontakke/BATH_Prokka_DB/Output_Deduplication/BATH_output_combined.csv" 
+bath_dataset_type="bath_data"
+output_dir="/xdisk/twheeler/nsontakke/BATH_Prokka_DB/Output_Bedtools/"
 prokka_bed="${output_dir}/bin.82.fa.bed"
 bath_bed="${output_dir}/${bath_dataset_type}_bin82.bed"
 corrected_bath_bed="${output_dir}/corrected_${bath_dataset_type}_bin82_w_strand.bed"
