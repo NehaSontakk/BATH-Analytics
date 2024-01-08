@@ -42,7 +42,7 @@ fi
 # Counting genes on the negative strand
 # This step should use the enhanced or corrected bed file
 echo "Counting genes on the negative strand..."
-awk '...' "$corrected_enhanced_bed_file" | wc -l
+awk '$4 == "-" { count++ } END { print count }' "$corrected_enhanced_bed_file"
 
 # Make a strand column
 echo "Adding strand information..."
