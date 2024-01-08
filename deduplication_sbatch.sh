@@ -20,5 +20,5 @@ for FILE in "${FILES[@]}"; do
     echo "Processing file: $FILE"
 
     # Run the Python script with the updated file paths
-    python /xdisk/twheeler/nsontakke/BATH_Prokka_DB/Scripts/deduplication_of_bath_tbl_output.py "${E_VALUE}" "${INPUT_FILEPATH}" "${OUTPUT_FILEPATH}" "${OUTPUT_ANALYSIS_FILEPATH}"
+    python /xdisk/twheeler/nsontakke/BATH_Prokka_DB/Scripts/deduplication_of_bath_tbl_output.py "${INPUT_FILEPATH}" "${E_VALUE}" "${OUTPUT_FILEPATH}" "${OUTPUT_ANALYSIS_FILEPATH}"
 done
