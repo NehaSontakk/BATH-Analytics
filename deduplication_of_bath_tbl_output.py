@@ -83,7 +83,7 @@ def process_file(filepath, e_value_cutoff=None):
         e_value = float(parts[12])
 
         # Check if the e-value is below the cutoff (if specified) before adding
-        if e_value_cutoff is None or e_value <= e_value_cutoff:
+        if e_value <= e_value_cutoff:
             if target_name not in contigs:
                 contigs[target_name] = []
 
@@ -96,8 +96,11 @@ def process_file(filepath, e_value_cutoff=None):
 
     # Sorting each contig's entries
     for target_name in contigs:
-        contigs[target_name] = sorted(contigs[target_name], key=lambda x: (x['ali_from'], x['ali_to']))
+        contigs[target_name] = sorted(contigs[target_name], key=lambda x: (x['ali_from']))
+        for i in contigs[target_name]:
+          print(i)
 
+    
     # Sorting contigs by name
     contigs = dict(sorted(contigs.items()))
 
