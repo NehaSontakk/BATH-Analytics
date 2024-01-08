@@ -291,7 +291,7 @@ positive_strand, negative_strand = find_pos_neg_strand(contigs)
 
 compare_contig_names(contigs, positive_strand, negative_strand)
 
-save_dict_to_json(contigs, 'all_contigs.json')
+#save_dict_to_json(contigs, 'all_contigs.json')
 
 contig_neg, discard_neg = deduplication_logic2(negative_strand,is_positive=False)
 
