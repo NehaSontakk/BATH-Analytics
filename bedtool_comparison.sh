@@ -23,10 +23,10 @@ echo "Converting BATH CSV to Enhanced BED..."
 enhanced_bed_file="${output_dir}/enhanced_${bath_dataset_type}_bin82.bed"
 
 awk -F, 'NR>1 {
-    info = $0;
-    gsub(/,/, ";", info);
-    start = $10 - 1; end = $11;
-    if (start > end) { tmp = start; start = end; end = tmp; }
+    info = $0; 
+    gsub(/,/, ";", info); 
+    start = $10 - 1; end = $11; 
+    if (start > end) { tmp = start; start = end; end = tmp; } 
     print $2, start, end, "-", info;
 }' "$bath_csv" > "$enhanced_bed_file"
 
@@ -49,7 +49,7 @@ echo "Adding strand information..."
 awk 'BEGIN {OFS="\t"} {if ($2 > $3) print $1, $2, $3, "-"; else print $1, $2, $3, "+"}' "$bath_bed" > "$bath_bed_w_strand"
 
 echo "Correcting start and end positions in Enhanced BED..."
-awk 'BEGIN {OFS="\t"} {if ($2 > $3) print $1, $3, $2, $4, $5; else print $1, $2, $3, $4, $5}' "${output_dir}/enhanced_${bath_dataset_type}_bin82.bed" > "${output_dir}/corrected_enhanced_${bath_d$
+awk 'BEGIN {OFS="\t"} {if ($2 > $3) print $1, $3, $2, $4, $5; else print $1, $2, $3, $4, $5}' "${output_dir}/enhanced_${bath_dataset_type}_bin82.bed" > "${output_dir}/corrected_enhanced_${bath_dataset_type}_bin82_w_strand.bed"
 echo "Start and end positions corrected."
 # Finding overlaps and unique features
 
@@ -71,3 +71,4 @@ echo "Cleaning up intermediate files..."
 rm "$prokka_bed" "$bath_bed" "$bath_bed_w_strand" "$corrected_bath_bed"
 
 echo "Pipeline completed."
+
