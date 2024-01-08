@@ -161,6 +161,7 @@ def add_entry_to_dict(dictionary, target_name, entry):
         dictionary[target_name] = []
     dictionary[target_name].append(entry)
 
+
 def update_alignments(contig_dict, target_name, i, j, overlap_below_70_old_discard, overlap_below_70_updated_add, update_first_alignment):
     align1 = contig_dict[target_name][i]
     align2 = contig_dict[target_name][j]
@@ -209,94 +210,6 @@ def save_dict_to_json(contig_dict, filename):
     with open(filename, 'w') as file:
         file.write(json_string)
 
-'''
-def deduplication_logic2(contig_dict, is_positive):
-    overlap_above_70_keep = {}
-    overlap_above_70_discard = {}
-    overlap_below_70_updated_add = {}
-    overlap_below_70_old_discard = {}
-
-    if is_positive:
-      for target_name in list(contig_dict.keys()):
-        i = 0
-        while i < len(contig_dict[target_name]):
-          align1 = contig_dict[target_name][i]
-          j = i + 1
-          while j < len(contig_dict[target_name]):
-            align2 = contig_dict[target_name][j]
-            overlap = calculate_overlap(align1['ali_from'], align1['ali_to'], align2['ali_from'], align2['ali_to'])
-
-            if overlap >= 0.7:
-                if align1['e_value'] > align2['e_value']:
-                    # Keep align2 in contig_dict
-                    # Discard align1 from contig_dict
-                    add_entry_to_dict(overlap_above_70_discard, target_name, align1)
-                    contig_dict[target_name].pop(i)
-                    # No need to increment i, as the next element shifts to the current position
-                    # Break out of the inner loop since align1 is removed
-                    break
-                elif align1['e_value'] <= align2['e_value']:
-                    # Keep align1 in contig_dict
-                    # Discard align2 from contig_dict
-                    add_entry_to_dict(overlap_above_70_discard, target_name, align2)
-                    contig_dict[target_name].pop(j)
-                    # Continue with the next comparison
-                    # j is incremented in the loop no need for an additional increment here
-                    continue
-
-            elif 0.1< overlap < 0.7:
-              if align1['e_value'] > align2['e_value']:
-                print("\nCase where align2 is best hit, so update align1")
-                update_alignments(contig_dict, target_name, i, j, overlap_below_70_old_discard, overlap_below_70_updated_add, True)  # Update align1
-              else:
-                print("\nCase where align1 is best hit, so update align2")
-                update_alignments(contig_dict, target_name, i, j, overlap_below_70_old_discard, overlap_below_70_updated_add, False)  # Update align2
-
-            j+=1
-          i+=1
-
-    else:
-      # Negative Strand Processing
-
-      for target_name in list(contig_dict.keys()):
-          i = 0
-          while i < len(contig_dict[target_name]):
-              align1 = contig_dict[target_name][i]
-              alignment_removed = False
-              j = i + 1
-              while j < len(contig_dict[target_name]):
-                  align2 = contig_dict[target_name][j]
-                  overlap = calculate_overlap_negative_strand(align1['ali_from'], align1['ali_to'], align2['ali_from'], align2['ali_to'])
-
-                  if overlap > 0.7:
-                    if align1['e_value'] > align2['e_value']:
-                        add_entry_to_dict(overlap_above_70_discard, target_name, align1)
-                        contig_dict[target_name].pop(i)
-                        alignment_removed = True
-                        break
-                    elif align1['e_value'] <= align2['e_value']:
-                        add_entry_to_dict(overlap_above_70_discard, target_name, align2)
-                        contig_dict[target_name].pop(j)
-                        continue
-                      # Add logic here for case when align1['e_value'] == align2['e_value']
-
-                  elif 0.1< overlap < 0.7:
-                    if align1['e_value'] > align2['e_value']:
-                      print("\nCase where align2 is best hit, so update align1")
-                      update_alignments(contig_dict, target_name, i, j, overlap_below_70_old_discard, overlap_below_70_updated_add, True)  # Update align1
-                    else:
-                      print("\nCase where align1 is best hit, so update align2")
-                      update_alignments(contig_dict, target_name, i, j, overlap_below_70_old_discard, overlap_below_70_updated_add, False)  # Update align2
-
-
-                  j += 1
-              if not alignment_removed:
-                  i += 1
-
-
-
-    return contig_dict, overlap_above_70_discard
-'''
 
 def count_alignments_in_file(data):
     # Count the number of alignments for each contig
@@ -323,6 +236,9 @@ def deduplication_logic2(contig_dict, is_positive):
                 overlap = (calculate_overlap if is_positive else calculate_overlap_negative_strand)(
                     align1['ali_from'], align1['ali_to'], align2['ali_from'], align2['ali_to']
                 )
+                # Print overlap details for every pair of alignments
+                print(f"Comparing alignments: {align1['full_line']} and {align2['full_line']}")
+                print(f"Overlap: {overlap*100:.2f}%")
 
                 if overlap > 0.7:
                   if align1['e_value'] > align2['e_value']:
