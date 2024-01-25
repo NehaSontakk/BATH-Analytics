@@ -36,7 +36,7 @@ for dir in "${protein_dirs[@]}"; do
     masked_dir="${masked_protein_dir}/${dir}"
     mkdir -p ${masked_dir}
 
-    for protein_file in ${current_dir}/*.sprot; do
+    for protein_file in ${current_dir}/sprot; do
         if [ -f "$protein_file" ]; then
             masked_file="${masked_dir}/$(basename ${protein_file})"
             ${tantan_exec} -x X ${protein_file} > ${masked_file}
