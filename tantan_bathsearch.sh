@@ -23,12 +23,12 @@ declare -a protein_dirs=("Bacteria/sprot" "Archaea/sprot" "Bacteria/IS" "Bacteri
 # Path to the Tantan executable
 tantan_exec="/xdisk/twheeler/nsontakke/Software/tantan-49/bin/tantan"
 # Output file after Tantan masking
-masked_file="/home/u13/nsontakke/Parkinsons_data/bin_82/bin.82.masked.fa.fna"
+masked_file="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/MAG_Data/bin.82.masked.fa.fna"
 # Run Tantan for masking DNA
 ${tantan_exec} -x N ${input_file} > ${masked_file}
 
 # Run Tantan for masking Protein database files
-masked_protein_dir="/xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/masked_proteins"
+masked_protein_dir="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Input_Bathsearch/masked_proteins"
 mkdir -p ${masked_protein_dir}
 # Process each .sprot file in each directory
 for dir in "${protein_dirs[@]}"; do
