@@ -1,7 +1,8 @@
 # BATH-Analytics
 
-1. run_bathsearch.sh (replace bin file name)
-2. 
+1. bathconvert
+2. tantan+bathsearch
+3. combine ct bath files
 
 
 ## Pseudocode for Deduplication Logic
