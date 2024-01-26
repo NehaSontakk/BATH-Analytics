@@ -12,36 +12,37 @@
 input_file="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/MAG_Data/bin.82.fa.fna"
 ####
 
-#Prokka Database Files
-# Base directory for protein files
-base_protein_dir="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Input_Bathsearch/kingdom"
-# List of directories containing .sprot files
-declare -a protein_dirs=("Bacteria/sprot" "Archaea/sprot" "Bacteria/IS" "Bacteria/AMR" "Viruses/sprot" "Mitochondria/sprot")
-####
 
-#TANTAN
+# TANTAN
 # Path to the Tantan executable
 tantan_exec="/xdisk/twheeler/nsontakke/Software/tantan-49/bin/tantan"
-# Output file after Tantan masking
-masked_file="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/MAG_Data/bin.82.masked.fa.fna"
-# Run Tantan for masking DNA
-${tantan_exec} -x N ${input_file} > ${masked_file}
 
-# Run Tantan for masking Protein database files
+# Output file after Tantan masking for DNA
+masked_dna_file="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/MAG_Data/bin.82.masked.fa.fna"
+
+# Run Tantan for masking DNA
+${tantan_exec} -x N ${input_file} > ${masked_dna_file}
+
+# Directory containing protein files
+base_protein_dir="/xdisk/twheeler/nsontakke/Prokka_BATH_Companput_Bathsearch/kingdom"
+
+# Output directory for masked protein files
 masked_protein_dir="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Input_Bathsearch/masked_proteins"
 mkdir -p ${masked_protein_dir}
+
+# List of directories containing .sprot files
+declare -a protein_dirs=("Bacteria" "Archaea" "Bacteria/IS" "Bacteria/AMR" "Viruses" "Mitochondria")
+
 # Process each .sprot file in each directory
 for dir in "${protein_dirs[@]}"; do
-    current_dir="${base_protein_dir}/${dir}"
+    current_dir="${base_protein_dir}/${dir}/sprot"
     masked_dir="${masked_protein_dir}/${dir}"
     mkdir -p ${masked_dir}
 
-    for protein_file in ${current_dir}/sprot; do
-        if [ -f "$protein_file" ]; then
-            masked_file="${masked_dir}/$(basename ${protein_file})"
-            ${tantan_exec} -x X ${protein_file} > ${masked_file}
-        fi
-    done
+    if [ -f "${current_dir}" ]; then
+        masked_file="${masked_dir}/$(basename ${current_dir})"
+        ${tantan_exec} -x X ${current_dir} > ${masked_file}
+    fi
 done
 
 ####
