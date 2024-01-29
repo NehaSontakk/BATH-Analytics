@@ -18,34 +18,11 @@ def process_file_data(file_data, ct_number):
             # Add the ct number to the description of target column
             parts = line.split()
             parts[-1] += f" ct{ct_number}"
-            processed_data.append(" ".join(parts))
+            processed_data.append("\t".join(parts))
         else:
             processed_data.append(line)
     return processed_data
 
-def sort_and_filter_data(data):
-    """
-    Sort the data by 'target name' and 'ali_to', filter by keeping the lowest e-value for same 'ali_from' and 'ali_to'.
-    :param data: List of data lines
-    :return: Sorted and filtered list of data lines
-    """
-    header = None
-    data_lines = []
-    filtered_data = {}
-
-    for line in data:
-        if line.startswith("#"):
-            if header is None:
-                header = line
-        else:
-            parts = line.strip().split()
-            key = (parts[0], parts[8], parts[9])  # target name, ali_from, ali_to
-            e_value = float(parts[12])  # e-value
-            if key not in filtered_data or e_value < float(filtered_data[key][12]):
-                filtered_data[key] = parts
-
-    sorted_filtered_data = sorted(filtered_data.values(), key=lambda x: (x[0], int(x[9])))
-    return [header] + [" ".join(line) + "\n" for line in sorted_filtered_data]
 
 def process_and_combine_files(file_list, directory, output_file):
     """
