@@ -81,7 +81,7 @@ def process_and_combine_files(file_list, directory, output_file):
 
 
 # Directory where the files are located
-directory = "/xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/output"
+directory = "/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Output_Bathsearch"
 
 # List of file names
 file_list_virus = [
