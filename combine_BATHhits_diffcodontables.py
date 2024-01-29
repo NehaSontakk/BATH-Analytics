@@ -38,14 +38,15 @@ def sort_and_filter_data(data):
             if header is None:
                 header = line
         else:
-            parts = line.strip().split()
+            parts = line.strip().split("\t")  # Ensure tab-separated parts
             key = (parts[0], parts[8], parts[9])  # target name, ali_from, ali_to
             e_value = float(parts[12])  # e-value
             if key not in filtered_data or e_value < float(filtered_data[key][12]):
                 filtered_data[key] = parts
 
     sorted_filtered_data = sorted(filtered_data.values(), key=lambda x: (x[0], int(x[9])))
-    return [header] + [" ".join(line) + "\n" for line in sorted_filtered_data]
+    return [header] + ["\t".join(line) + "\n" for line in sorted_filtered_data]
+
 
 def process_and_combine_files(file_list, directory, output_file):
     """
