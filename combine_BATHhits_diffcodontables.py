@@ -2,11 +2,6 @@ import os
 import re
 
 def read_file(file_path):
-    """
-    Read the content of a file.
-    :param file_path: Path to the file
-    :return: List of lines in the file
-    """
     with open(file_path, 'r') as file:
         return file.readlines()
     
@@ -89,14 +84,21 @@ def process_and_combine_files(file_list, directory, output_file):
 directory = "/xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/output"
 
 # List of file names
-file_list = [
+file_list_virus = [
     "DNA_Viruses_kingdom_sprot_ct11.tbl",  
     "DNA_Viruses_kingdom_sprot_ct1.tbl",
 ]
 
 # Output file path
-output_file = "/xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/output/DNA_Viruses_kingdom_sprot_ctcombined_sorted_data.tbl"
+output_file_virus = "/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Output_Bathsearch_Combined/DNA_Viruses_kingdom_sprot_ctcombined.tbl"
+# Process, combine, and sort the files, then save to the output file
+process_and_combine_files(file_list_virus, directory, output_file_virus)
+
+file_list_mitochondria = ['DNA_Mitochondria_kingdom_sprot_ct13.tbl','DNA_Mitochondria_kingdom_sprot_ct22.tbl','DNA_Mitochondria_kingdom_sprot_ct2.tbl','DNA_Mitochondria_kingdom_sprot_ct9.tbl','DNA_Mitochondria_kingdom_sprot_ct14.tbl','DNA_Mitochondria_kingdom_sprot_ct23.tbl','DNA_Mitochondria_kingdom_sprot_ct3.tbl','DNA_Mitochondria_kingdom_sprot_ct16.tbl','DNA_Mitochondria_kingdom_sprot_ct24.tbl','DNA_Mitochondria_kingdom_sprot_ct4.tbl','DNA_Mitochondria_kingdom_sprot_ct21.tbl','DNA_Mitochondria_kingdom_sprot_ct25.tbl','DNA_Mitochondria_kingdom_sprot_ct5.tbl']
+
+# Output file path
+output_file_mito = "/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Output_Bathsearch_Combined/DNA_Mitochondria_kingdom_sprot_ctcombined.tbl"
 
 # Process, combine, and sort the files, then save to the output file
-process_and_combine_files(file_list, directory, output_file)
+process_and_combine_files(file_list_mitochondria, directory, output_file_mito)
 
