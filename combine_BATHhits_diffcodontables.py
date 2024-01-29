@@ -17,7 +17,7 @@ def process_file_data(file_data, ct_number):
         if not line.startswith("#") and line.strip():
             # Add the ct number to the description of target column
             parts = line.split()
-            parts[-1] += f" ct{ct_number}"
+            parts[-1] += f"\tct{ct_number}"
             processed_data.append("\t".join(parts))
         else:
             processed_data.append(line)
