@@ -56,19 +56,19 @@ mkdir -p ${output_main_dir}
 
 #Run bacteria
 ${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_kingdom_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_kingdom_sprot.tbl -o ${output_main_dir}/DNA_Bacteria_kingdom_sprot.out ${masked_protein_dir}/Bacteria/sprot.masked ${masked_dna_file} &
-echo "Bathsearch for Bacteria completed at $(date)" &
+echo "Bathsearch for Bacteria completed at $(date)"
 #Run archea
 ${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Archaea_kingdom_sprot.fhmm --tblout ${output_main_dir}/DNA_Archaea_kingdom_sprot.tbl -o ${output_main_dir}/DNA_Archaea_kingdom_sprot.out ${masked_protein_dir}/Archaea/sprot.masked ${masked_dna_file} &
-echo "Bathsearch for Archaea completed at $(date)" &
+echo "Bathsearch for Archaea completed at $(date)"
 #Run HAMAP
 ${bathsearch_exec} -o ${output_main_dir}/HAMAP_bath_bin82.out --tblout ${output_main_dir}/HAMAP_bath_bin82.tbl /xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Input_Bathsearch/HAMAP_ALL.bhmm ${masked_dna_file} &
-echo "Bathsearch for HAMAP completed at $(date)" &
+echo "Bathsearch for HAMAP completed at $(date)"
 # Run on Bacteria/IS
 ${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_IS_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_IS_sprot.tbl -o ${output_main_dir}/DNA_Bacteria_IS_sprot.out ${masked_protein_dir}/Bacteria/IS.masked ${masked_dna_file} &
 echo "Bathsearch for Bacteria/IS completed at $(date)" &
 # Run on Bacteria/AMR
 ${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_AMR_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_AMR_sprot.tbl -o ${output_main_dir}/DNA_Bacteria_AMR_sprot.out ${masked_protein_dir}/Bacteria/AMR.masked ${masked_dna_file} &
-echo "Bathsearch for Bacteria/AMR completed at $(date)" &
+echo "Bathsearch for Bacteria/AMR completed at $(date)"
 # Run viral commands with codon tables 1 and 11
 for ct in 1 11; do
     hmmout="${output_main_dir}/DNA_Viruses_kingdom_sprot_ct${ct}.fhmm"
@@ -76,7 +76,7 @@ for ct in 1 11; do
     output="${output_main_dir}/DNA_Viruses_kingdom_sprot_ct${ct}.out"
     ${bathsearch_exec} --ct ${ct} --hmmout ${hmmout} --tblout ${tblout} -o ${output} ${masked_protein_dir}/Viruses/sprot.masked ${masked_dna_file} &
 done
-echo "Bathsearch for Virus completed at $(date)" &
+echo "Bathsearch for Virus completed at $(date)"
 # Run bathsearch for each mitochondrial codon table
 declare -a codon_tables=(2 3 4 5 9 13 14 16 21 22 23 24 25)
 for ct in "${codon_tables[@]}"; do
@@ -85,5 +85,5 @@ for ct in "${codon_tables[@]}"; do
     output="${output_main_dir}/DNA_Mitochondria_kingdom_sprot_ct${ct}.out"
     ${bathsearch_exec} --ct ${ct} --hmmout ${hmmout} --tblout ${tblout} -o ${output} ${masked_protein_dir}/Mitochondria/sprot.masked ${masked_dna_file} &
 done
-echo "Bathsearch for Mitochnodria completed at $(date)" &
+echo "Bathsearch for Mitochnodria completed at $(date)"
 wait
