@@ -61,7 +61,7 @@ echo "Bathsearch for Bacteria completed at $(date)" &
 ${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Archaea_kingdom_sprot.fhmm --tblout ${output_main_dir}/DNA_Archaea_kingdom_sprot.tbl -o ${output_main_dir}/DNA_Archaea_kingdom_sprot.out ${masked_protein_dir}/Archaea/sprot.masked ${masked_dna_file} &
 echo "Bathsearch for Archaea completed at $(date)" &
 #Run HAMAP
-${bathsearch_exec} -o ${output_main_dir}/HAMAP_bath_bin82.out --tblout ${output_main_dir}/HAMAP_bath_bin82.tbl ${output_main_dir}/HAMAP_ALL.bhmm /xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Input_Bathsearch/HAMAP_ALL.bhmm ${masked_dna_file} &
+${bathsearch_exec} -o ${output_main_dir}/HAMAP_bath_bin82.out --tblout ${output_main_dir}/HAMAP_bath_bin82.tbl /xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Input_Bathsearch/HAMAP_ALL.bhmm ${masked_dna_file} &
 echo "Bathsearch for HAMAP completed at $(date)" &
 # Run on Bacteria/IS
 ${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_IS_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_IS_sprot.tbl -o ${output_main_dir}/DNA_Bacteria_IS_sprot.out ${masked_protein_dir}/Bacteria/IS.masked ${masked_dna_file} &
