@@ -54,27 +54,27 @@ bathsearch_exec="/home/u13/nsontakke/BATH/src/bathsearch"
 output_main_dir="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Output_Bathsearch"
 mkdir -p ${output_main_dir}
 
-#Run archea
-${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Archaea_kingdom_sprot.fhmm --tblout ${output_main_dir}/DNA_Archaea_kingdom_sprot.tbl -o ${output_m$
-echo "Bathsearch for Archaea completed at $(date)"
 #Run bacteria
-${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_kingdom_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_kingdom_sprot.tbl -o ${output$
+${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_kingdom_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_kingdom_sprot.tbl -o ${output_main_dir}/DNA_Bacteria_kingdom_sprot.out ${masked_protein_dir}/Bacteria/sprot/${masked_file} ${input_file} &
 echo "Bathsearch for Bacteria completed at $(date)"
+#Run archea
+${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Archaea_kingdom_sprot.fhmm --tblout ${output_main_dir}/DNA_Archaea_kingdom_sprot.tbl -o ${output_main_dir}/DNA_Archaea_kingdom_sprot.out ${masked_protein_dir}/Archaea/sprot/${masked_file} ${input_file} &
+echo "Bathsearch for Archaea completed at $(date)"
+#Run HAMAP
+${bathsearch_exec} -o ${output_main_dir}/HAMAP_bath_bin82.out --tblout ${output_main_dir}/HAMAP_bath_bin82.tbl ${output_main_dir}/HAMAP_ALL.bhmm /xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Input_Bathsearch/HAMAP_ALL.bhmm
+echo "Bathsearch for HAMAP completed at $(date)"
 # Run on Bacteria/IS
-${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_IS_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_IS_sprot.tbl -o ${output_main_dir}$
+${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_IS_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_IS_sprot.tbl -o ${output_main_dir}/DNA_Bacteria_IS_sprot.out ${masked_protein_dir}/Bacteria/IS  &
 echo "Bathsearch for Bacteria/IS completed at $(date)"
 # Run on Bacteria/AMR
-${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_AMR_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_AMR_sprot.tbl -o ${output_main_di$
+${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_AMR_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_AMR_sprot.tbl -o ${output_main_dir}/DNA_Bacteria_AMR_sprot.out /xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/kingdom/Bacteria/AMR /home/u13/nsontakke/Parkinsons_data/bin_82/bin.82.fa.fna &
 echo "Bathsearch for Bacteria/AMR completed at $(date)"
-#Run HAMAP
-${bathsearch_exec} -o ${output_main_dir}/HAMAP_bath_bin82.out --tblout ${output_main_dir}/HAMAP_bath_bin82.tbl /xdisk/twheeler/nsontakke/Prokka_BATH_Comparis$
-echo "Bathsearch for HAMAP completed at $(date)"
 # Run viral commands with codon tables 1 and 11
 for ct in 1 11; do
     hmmout="${output_main_dir}/DNA_Viruses_kingdom_sprot_ct${ct}.fhmm"
     tblout="${output_main_dir}/DNA_Viruses_kingdom_sprot_ct${ct}.tbl"
     output="${output_main_dir}/DNA_Viruses_kingdom_sprot_ct${ct}.out"
-    ${bathsearch_exec} --ct ${ct} --hmmout ${hmmout} --tblout ${tblout} -o ${output} ${masked_protein_dir}/Viruses/sprot.masked ${masked_dna_file} &
+    ${bathsearch_exec} --ct ${ct} --hmmout ${hmmout} --tblout ${tblout} -o ${output} /xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/kingdom/Viruses/sprot /home/u13/nsontakke/Parkinsons_data/bin_82/bin.82.fa.fna &
 done
 echo "Bathsearch for Virus completed at $(date)"
 # Run bathsearch for each mitochondrial codon table
@@ -83,9 +83,7 @@ for ct in "${codon_tables[@]}"; do
     hmmout="${output_main_dir}/DNA_Mitochondria_kingdom_sprot_ct${ct}.fhmm"
     tblout="${output_main_dir}/DNA_Mitochondria_kingdom_sprot_ct${ct}.tbl"
     output="${output_main_dir}/DNA_Mitochondria_kingdom_sprot_ct${ct}.out"
-
-    ${bathsearch_exec} --ct ${ct} --hmmout ${hmmout} --tblout ${tblout} -o ${output} ${masked_protein_dir}/Mitochondria/sprot.masked ${masked_dna_file} &
+    ${bathsearch_exec} --ct ${ct} --hmmout ${hmmout} --tblout ${tblout} -o ${output} /xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/kingdom/Mitochondria/sprot ${input_dir} &
 done
 echo "Bathsearch for Mitochnodria completed at $(date)"
-# Wait for all background jobs to finish
 wait
