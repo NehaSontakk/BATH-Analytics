@@ -8,10 +8,11 @@
 #SBATCH --account=twheeler
 #SBATCH --partition=standard
 
+echo "Process started at $(date)"
+
 # Path to the DNA input file
 input_file="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/MAG_Data/bin.82.fa.fna"
 ####
-
 
 # TANTAN
 # Path to the Tantan executable
@@ -23,63 +24,59 @@ masked_dna_file="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/MAG_Data/bin
 # Run Tantan for masking DNA
 ${tantan_exec} -x N ${input_file} > ${masked_dna_file}
 
-# Directory containing protein files
-base_protein_dir="/xdisk/twheeler/nsontakke/Prokka_BATH_Companput_Bathsearch/kingdom"
+# Specify Tantan input directory
+tantan_input_dir="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Input_Bathsearch/kingdom"
 
 # Output directory for masked protein files
 masked_protein_dir="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Input_Bathsearch/masked_proteins"
 mkdir -p ${masked_protein_dir}
 
-# List of directories containing .sprot files
-declare -a protein_dirs=("Bacteria" "Archaea" "Bacteria/IS" "Bacteria/AMR" "Viruses" "Mitochondria")
-
-# Process each .sprot file in each directory
-for dir in "${protein_dirs[@]}"; do
-    current_dir="${base_protein_dir}/${dir}/sprot"
-    masked_dir="${masked_protein_dir}/${dir}"
-    mkdir -p ${masked_dir}
-
-    if [ -f "${current_dir}" ]; then
-        masked_file="${masked_dir}/$(basename ${current_dir})"
-        ${tantan_exec} -p X ${current_dir} > ${masked_file}
-    fi
-done
+# Running Tantan for Bacteria sprot file
+${tantan_exec} -p -x X ${tantan_input_dir}/Bacteria/sprot > ${masked_protein_dir}/Bacteria/sprot.masked
+# Running Tantan for Archea sprot file
+${tantan_exec} -p -x X ${tantan_input_dir}/Archaea/sprot > ${masked_protein_dir}/Archaea/sprot.masked
+# Running Tantan for Virus sprot file
+${tantan_exec} -p -x X ${tantan_input_dir}/Viruses/sprot > ${masked_protein_dir}/Viruses/sprot.masked
+# Running Tantan for Mitochondria sprot file
+${tantan_exec} -p -x X ${tantan_input_dir}/Mitochondria/sprot > ${masked_protein_dir}/Mitochondria/sprot.masked
+# Running Tantan for IS file
+${tantan_exec} -p -x X ${tantan_input_dir}/Bacteria/IS > ${masked_protein_dir}/Bacteria/IS.masked
+# Running Tantan for AMR file
+${tantan_exec} -p -x X ${tantan_input_dir}/Bacteria/AMR > ${masked_protein_dir}/Bacteria/AMR.masked
+echo "Tantan for DNA completed at $(date)"
 
 ####
 
 #BATH SEARCH
 # Path to bathsearch executable
 bathsearch_exec="/home/u13/nsontakke/BATH/src/bathsearch"
-
 # Create a new directory for output files
-output_main_dir="/xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/output"
-#mkdir -p ${output_main_dir}
-
-#Run bacteria
-${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_kingdom_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_kingdom_sprot.tbl -o ${output_main_dir}/DNA_Bacteria_kingdom_sprot.out ${masked_protein_dir}/Bacteria/sprot/${masked_file} ${input_file} &
+output_main_dir="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Output_Bathsearch"
+mkdir -p ${output_main_dir}
 
 #Run archea
-${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Archaea_kingdom_sprot.fhmm --tblout ${output_main_dir}/DNA_Archaea_kingdom_sprot.tbl -o ${output_main_dir}/DNA_Archaea_kingdom_sprot.out ${masked_protein_dir}/Archaea/sprot/${masked_file} ${input_file} &
-
-#!!!!!!!!!!!SOLVE
-#Run HAMAP
-#${bathsearch_exec} -o ${output_main_dir}/HAMAP_bath_bin82.out --tblout ${output_main_dir}/HAMAP_bath_bin82.tbl ${output_main_dir}/HAMAP_ALL.bhmm /home/u13/nsontakke/Parkinsons_data/bin_82/bin.82.fa.fna &
-
+${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Archaea_kingdom_sprot.fhmm --tblout ${output_main_dir}/DNA_Archaea_kingdom_sprot.tbl -o ${output_m$
+echo "Bathsearch for Archaea completed at $(date)"
+#Run bacteria
+${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_kingdom_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_kingdom_sprot.tbl -o ${output$
+echo "Bathsearch for Bacteria completed at $(date)"
 # Run on Bacteria/IS
-${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_IS_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_IS_sprot.tbl -o ${output_main_dir}/DNA_Bacteria_IS_sprot.out ${masked_protein_dir}/Bacteria/IS  &
-
+${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_IS_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_IS_sprot.tbl -o ${output_main_dir}$
+echo "Bathsearch for Bacteria/IS completed at $(date)"
 # Run on Bacteria/AMR
-${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_AMR_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_AMR_sprot.tbl -o ${output_main_dir}/DNA_Bacteria_AMR_sprot.out /xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/kingdom/Bacteria/AMR /home/u13/nsontakke/Parkinsons_data/bin_82/bin.82.fa.fna &
-
+${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_AMR_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_AMR_sprot.tbl -o ${output_main_di$
+echo "Bathsearch for Bacteria/AMR completed at $(date)"
+#Run HAMAP
+${bathsearch_exec} -o ${output_main_dir}/HAMAP_bath_bin82.out --tblout ${output_main_dir}/HAMAP_bath_bin82.tbl /xdisk/twheeler/nsontakke/Prokka_BATH_Comparis$
+echo "Bathsearch for HAMAP completed at $(date)"
 # Run viral commands with codon tables 1 and 11
 for ct in 1 11; do
     hmmout="${output_main_dir}/DNA_Viruses_kingdom_sprot_ct${ct}.fhmm"
     tblout="${output_main_dir}/DNA_Viruses_kingdom_sprot_ct${ct}.tbl"
     output="${output_main_dir}/DNA_Viruses_kingdom_sprot_ct${ct}.out"
-    ${bathsearch_exec} --ct ${ct} --hmmout ${hmmout} --tblout ${tblout} -o ${output} /xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/kingdom/Viruses/sprot /home/u13/nsontakke/Parkinsons_data/bin_82/bin.82.fa.fna &
+    ${bathsearch_exec} --ct ${ct} --hmmout ${hmmout} --tblout ${tblout} -o ${output} ${masked_protein_dir}/Viruses/sprot.masked ${masked_dna_file} &
 done
-
-
+echo "Bathsearch for Virus completed at $(date)"
 # Run bathsearch for each mitochondrial codon table
 declare -a codon_tables=(2 3 4 5 9 13 14 16 21 22 23 24 25)
 for ct in "${codon_tables[@]}"; do
@@ -87,8 +84,8 @@ for ct in "${codon_tables[@]}"; do
     tblout="${output_main_dir}/DNA_Mitochondria_kingdom_sprot_ct${ct}.tbl"
     output="${output_main_dir}/DNA_Mitochondria_kingdom_sprot_ct${ct}.out"
 
-    ${bathsearch_exec} --ct ${ct} --hmmout ${hmmout} --tblout ${tblout} -o ${output} /xdisk/twheeler/nsontakke/Prokka_db/BATH_w_prokka_db/kingdom/Mitochondria/sprot ${input_dir} &
+    ${bathsearch_exec} --ct ${ct} --hmmout ${hmmout} --tblout ${tblout} -o ${output} ${masked_protein_dir}/Mitochondria/sprot.masked ${masked_dna_file} &
 done
-
+echo "Bathsearch for Mitochnodria completed at $(date)"
 # Wait for all background jobs to finish
 wait
