@@ -64,10 +64,10 @@ echo "Bathsearch for Archaea completed at $(date)" &
 ${bathsearch_exec} -o ${output_main_dir}/HAMAP_bath_bin82.out --tblout ${output_main_dir}/HAMAP_bath_bin82.tbl ${output_main_dir}/HAMAP_ALL.bhmm /xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Input_Bathsearch/HAMAP_ALL.bhmm ${masked_dna_file} &
 echo "Bathsearch for HAMAP completed at $(date)" &
 # Run on Bacteria/IS
-${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_IS_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_IS_sprot.tbl -o ${output_main_dir}/DNA_Bacteria_IS_sprot.out ${masked_protein_dir}/Bacteria/IS/sprot.masked ${masked_dna_file} &
+${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_IS_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_IS_sprot.tbl -o ${output_main_dir}/DNA_Bacteria_IS_sprot.out ${masked_protein_dir}/Bacteria/IS.masked ${masked_dna_file} &
 echo "Bathsearch for Bacteria/IS completed at $(date)" &
 # Run on Bacteria/AMR
-${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_AMR_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_AMR_sprot.tbl -o ${output_main_dir}/DNA_Bacteria_AMR_sprot.out ${masked_protein_dir}/Bacteria/AMR/sprot.masked ${masked_dna_file} &
+${bathsearch_exec} --ct 11 --hmmout ${output_main_dir}/DNA_Bacteria_AMR_sprot.fhmm --tblout ${output_main_dir}/DNA_Bacteria_AMR_sprot.tbl -o ${output_main_dir}/DNA_Bacteria_AMR_sprot.out ${masked_protein_dir}/Bacteria/AMR.masked ${masked_dna_file} &
 echo "Bathsearch for Bacteria/AMR completed at $(date)" &
 # Run viral commands with codon tables 1 and 11
 for ct in 1 11; do
