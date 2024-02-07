@@ -41,7 +41,7 @@ for dir in "${protein_dirs[@]}"; do
 
     if [ -f "${current_dir}" ]; then
         masked_file="${masked_dir}/$(basename ${current_dir})"
-        ${tantan_exec} -x X ${current_dir} > ${masked_file}
+        ${tantan_exec} -p X ${current_dir} > ${masked_file}
     fi
 done
 
