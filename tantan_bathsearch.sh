@@ -11,7 +11,7 @@
 echo "Process started at $(date)"
 
 # Path to the DNA input file
-input_file="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/MAG_Data/bin.82.fa.fna"
+input_file="/xdisk/tyuhas/nsontakke/long-term-storage/Prokka_BATH_Comparison_2/MAG_Data/bin.158.fa"
 ####
 
 # TANTAN
@@ -19,16 +19,16 @@ input_file="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/MAG_Data/bin.82.f
 tantan_exec="/xdisk/twheeler/nsontakke/Software/tantan-49/bin/tantan"
 
 # Output file after Tantan masking for DNA
-masked_dna_file="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/MAG_Data/bin.82.masked.fa.fna"
+masked_dna_file="/xdisk/tyuhas/nsontakke/long-term-storage/Prokka_BATH_Comparison_2/MAG_Data/bin.158.masked.fa.fna"
 
 # Run Tantan for masking DNA
 ${tantan_exec} -x N ${input_file} > ${masked_dna_file}
 
 # Specify Tantan input directory
-tantan_input_dir="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Input_Bathsearch/kingdom"
+tantan_input_dir="/xdisk/tyuhas/nsontakke/long-term-storage/Prokka_BATH_Comparison_2/Input_Bathsearch/kingdom"
 
 # Output directory for masked protein files
-masked_protein_dir="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Input_Bathsearch/masked_proteins"
+masked_protein_dir="/xdisk/tyuhas/nsontakke/long-term-storage/Prokka_BATH_Comparison_2/Input_Bathsearch/masked_proteins"
 mkdir -p ${masked_protein_dir}
 
 # Running Tantan for Bacteria sprot file
@@ -51,7 +51,7 @@ echo "Tantan for DNA completed at $(date)"
 # Path to bathsearch executable
 bathsearch_exec="/home/u13/nsontakke/BATH/src/bathsearch"
 # Create a new directory for output files
-output_main_dir="/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Output_Bathsearch"
+output_main_dir="/xdisk/tyuhas/nsontakke/long-term-storage/Prokka_BATH_Comparison_2/Output_Bathsearch"
 mkdir -p ${output_main_dir}
 
 #Run bacteria
