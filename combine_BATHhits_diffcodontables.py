@@ -91,14 +91,14 @@ file_list_virus = [
 ]
 
 # Output file path
-output_file_virus = "/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Output_Bathsearch_Combined/DNA_Viruses_kingdom_sprot_ctcombined.tbl"
+output_file_virus = "/xdisk/tyuhas/nsontakke/long-term-storage/Prokka_BATH_Comparison_2/Output_Bathsearch_Combined/DNA_Viruses_kingdom_sprot_ctcombined.tbl"
 # Process, combine, and sort the files, then save to the output file
 process_and_combine_files(file_list_virus, directory, output_file_virus)
 
 file_list_mitochondria = ['DNA_Mitochondria_kingdom_sprot_ct13.tbl','DNA_Mitochondria_kingdom_sprot_ct22.tbl','DNA_Mitochondria_kingdom_sprot_ct2.tbl','DNA_Mitochondria_kingdom_sprot_ct9.tbl','DNA_Mitochondria_kingdom_sprot_ct14.tbl','DNA_Mitochondria_kingdom_sprot_ct23.tbl','DNA_Mitochondria_kingdom_sprot_ct3.tbl','DNA_Mitochondria_kingdom_sprot_ct16.tbl','DNA_Mitochondria_kingdom_sprot_ct24.tbl','DNA_Mitochondria_kingdom_sprot_ct4.tbl','DNA_Mitochondria_kingdom_sprot_ct21.tbl','DNA_Mitochondria_kingdom_sprot_ct25.tbl','DNA_Mitochondria_kingdom_sprot_ct5.tbl']
 
 # Output file path
-output_file_mito = "/xdisk/twheeler/nsontakke/Prokka_BATH_Comparison_2/Output_Bathsearch_Combined/DNA_Mitochondria_kingdom_sprot_ctcombined.tbl"
+output_file_mito = "/xdisk/tyuhas/nsontakke/long-term-storage/Prokka_BATH_Comparison_2/Output_Bathsearch_Combined/DNA_Mitochondria_kingdom_sprot_ctcombined.tbl"
 
 # Process, combine, and sort the files, then save to the output file
 process_and_combine_files(file_list_mitochondria, directory, output_file_mito)
