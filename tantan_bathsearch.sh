@@ -8,7 +8,6 @@
 #SBATCH --account=twheeler
 #SBATCH --partition=standard
 
-echo "Process started at $(date)"
 
 # Path to the DNA input file
 input_file="/xdisk/tyuhas/nsontakke/long-term-storage/Prokka_BATH_Comparison_2/MAG_Data/bin.158.fa"
