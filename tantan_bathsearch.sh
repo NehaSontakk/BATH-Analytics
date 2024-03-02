@@ -16,7 +16,7 @@ input_file="/xdisk/tyuhas/nsontakke/long-term-storage/Prokka_BATH_Comparison_2/M
 
 # TANTAN
 # Path to the Tantan executable
-tantan_exec="/xdisk/twheeler/nsontakke/Software/tantan-49/bin/tantan"
+tantan_exec="/xdisk/tyuhas/nsontakke/long-term-storage/Software/tantan-49/bin/tantan"
 
 # Output file after Tantan masking for DNA
 masked_dna_file="/xdisk/tyuhas/nsontakke/long-term-storage/Prokka_BATH_Comparison_2/MAG_Data/bin.158.masked.fa.fna"
